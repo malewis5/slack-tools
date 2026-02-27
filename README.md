@@ -1,5 +1,8 @@
 # slack-tools
 
+[![npm version](https://img.shields.io/npm/v/slack-tools)](https://www.npmjs.com/package/slack-tools)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](./LICENSE)
+
 [AI SDK](https://ai-sdk.dev) tools for [Slack](https://api.slack.com). Typed, structured tool calls for AI agents. No MCP transport required.
 
 ## Installation
