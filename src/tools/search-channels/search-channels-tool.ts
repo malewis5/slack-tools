@@ -55,11 +55,15 @@ const searchChannelsOutputSchema = z.object({
   next_cursor: z.string().optional(),
 });
 
-export function createSearchChannelsTool(client: WebClient) {
+export function createSearchChannelsTool(
+  client: WebClient,
+  needsApproval?: boolean,
+) {
   return tool({
     description: searchChannelsDescription,
     inputSchema: searchChannelsInputSchema,
     outputSchema: searchChannelsOutputSchema,
+    needsApproval,
     execute: async (args) => {
       const result = await client.conversations.list({
         types: args.channel_types ?? "public_channel",

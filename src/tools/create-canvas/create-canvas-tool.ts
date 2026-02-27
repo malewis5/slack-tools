@@ -15,11 +15,15 @@ const createCanvasOutputSchema = z.object({
   canvas_url: z.string(),
 });
 
-export function createCreateCanvasTool(client: WebClient) {
+export function createCreateCanvasTool(
+  client: WebClient,
+  needsApproval?: boolean,
+) {
   return tool({
     description: createCanvasDescription,
     inputSchema: createCanvasInputSchema,
     outputSchema: createCanvasOutputSchema,
+    needsApproval,
     execute: async (args) => {
       const result = await client.canvases.create({
         title: args.title,

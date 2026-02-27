@@ -25,11 +25,15 @@ const sendMessageOutputSchema = z.object({
   }),
 });
 
-export function createSendMessageTool(client: WebClient) {
+export function createSendMessageTool(
+  client: WebClient,
+  needsApproval?: boolean,
+) {
   return tool({
     description: sendMessageDescription,
     inputSchema: sendMessageInputSchema,
     outputSchema: sendMessageOutputSchema,
+    needsApproval,
     execute: async (args) => {
       const result = await client.chat.postMessage({
         channel: args.channel_id,

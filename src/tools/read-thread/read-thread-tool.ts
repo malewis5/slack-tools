@@ -77,11 +77,15 @@ async function resolveMessage(
   };
 }
 
-export function createReadThreadTool(client: WebClient) {
+export function createReadThreadTool(
+  client: WebClient,
+  needsApproval?: boolean,
+) {
   return tool({
     description: readThreadDescription,
     inputSchema: readThreadInputSchema,
     outputSchema: readThreadOutputSchema,
+    needsApproval,
     execute: async (args) => {
       const result = await client.conversations.replies({
         channel: args.channel_id,

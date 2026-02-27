@@ -36,11 +36,15 @@ const scheduleMessageOutputSchema = z.object({
   post_at_formatted: z.string(),
 });
 
-export function createScheduleMessageTool(client: WebClient) {
+export function createScheduleMessageTool(
+  client: WebClient,
+  needsApproval?: boolean,
+) {
   return tool({
     description: scheduleMessageDescription,
     inputSchema: scheduleMessageInputSchema,
     outputSchema: scheduleMessageOutputSchema,
+    needsApproval,
     execute: async (args) => {
       const result = await client.chat.scheduleMessage({
         channel: args.channel_id,

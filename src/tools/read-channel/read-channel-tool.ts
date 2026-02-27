@@ -58,11 +58,15 @@ const readChannelOutputSchema = z.object({
   next_cursor: z.string().optional(),
 });
 
-export function createReadChannelTool(client: WebClient) {
+export function createReadChannelTool(
+  client: WebClient,
+  needsApproval?: boolean,
+) {
   return tool({
     description: readChannelDescription,
     inputSchema: readChannelInputSchema,
     outputSchema: readChannelOutputSchema,
+    needsApproval,
     execute: async (args) => {
       const result = await client.conversations.history({
         channel: args.channel_id,
