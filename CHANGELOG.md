@@ -1,5 +1,11 @@
 # slack-tools
 
+## 1.1.1
+
+### Patch Changes
+
+- [#9](https://github.com/malewis5/slack-tools/pull/9) [`eeb23cb`](https://github.com/malewis5/slack-tools/commit/eeb23cb6247a81f0bf4386e231fa241f24e225a0) Thanks [@malewis5](https://github.com/malewis5)! - Add JSDocs and update license
+
 ## 1.1.0
 
 ### Minor Changes
