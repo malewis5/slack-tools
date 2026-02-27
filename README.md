@@ -20,7 +20,7 @@ bun add slack-tools
 import { generateText } from "ai";
 import { createSlackTools } from "slack-tools";
 
-const tools = createSlackTools(process.env.SLACK_TOKEN);
+const tools = createSlackTools(process.env.SLACK_USER_TOKEN);
 
 const { text } = await generateText({
   model: "anthropic/claude-sonnet-4-5",
@@ -40,14 +40,14 @@ Returns all available Slack tools, ready to pass to `generateText`, `streamText`
 ```ts
 import { createSlackTools } from "slack-tools";
 
-const tools = createSlackTools(process.env.SLACK_TOKEN);
+const tools = createSlackTools(process.env.SLACK_USER_TOKEN);
 ```
 
 #### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
-| `slackToken` | `string` | Yes | A Slack OAuth token (bot or user) with the required scopes. |
+| `slackToken` | `string` | Yes | A Slack user OAuth token (`xoxp-...`) with the required scopes. |
 
 #### Returns
 
@@ -70,7 +70,9 @@ Each tool includes `inputSchema`, `outputSchema`, `execute`, and `toModelOutput`
 
 ## Required Scopes
 
-`chat:write`, `canvases:write`, `search:read`, `channels:read`, `channels:history`, `groups:history`, `im:history`, `mpim:history`, `users:read`, `users:read.email`
+Your Slack app needs the following user token scopes:
+
+`chat:write`, `canvases:read`, `canvases:write`, `channels:history`, `groups:history`, `im:history`, `mpim:history`, `search:read.public`, `search:read.private`, `search:read.mpim`, `search:read.im`, `search:read.files`, `search:read.users`, `users:read`, `users:read.email`
 
 ## Comparison with Slack MCP
 
