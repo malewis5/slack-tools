@@ -3,6 +3,7 @@
   "type": "module",
   "version": "1.0.0",
   "description": "AI SDK tools for Slack",
+  "packageManager": "pnpm@10.27.0",
   "author": "malewis5",
   "license": "MIT",
   "homepage": "https://github.com/malewis5/slack-tools#readme",
