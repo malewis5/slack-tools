@@ -24,6 +24,11 @@ export type SlackToolName =
   | "slack_read_user_profile";
 
 export interface CreateSlackToolsOptions {
+  /**
+   * Controls which tools require human approval before execution.
+   * - `true` — require approval for all tools
+   * - `SlackToolName[]` — require approval only for the listed tools
+   */
   needsApproval?: boolean | SlackToolName[];
 }
 
@@ -36,10 +41,30 @@ function resolveApproval(
   return needsApproval.includes(toolName) ? true : undefined;
 }
 
+/**
+ * Create all available Slack tools for the AI SDK.
+ *
+ * @param slackToken - A Slack user OAuth token (`xoxp-...`) with the required scopes.
+ * @param options - Optional configuration (e.g. human-in-the-loop approval).
+ * @returns An object of Slack tools ready to pass to `generateText`, `streamText`, or any AI SDK agent.
+ *
+ * @example
+ * ```ts
+ * import { createSlackTools } from "slack-tools";
+ *
+ * const tools = createSlackTools(process.env.SLACK_USER_TOKEN);
+ *
+ * const { text } = await generateText({
+ *   model: "anthropic/claude-sonnet-4-5",
+ *   tools,
+ *   prompt: "Search for messages about the Q1 roadmap in #general",
+ * });
+ * ```
+ */
 export function createSlackTools(
   slackToken: string,
   options?: CreateSlackToolsOptions,
-) {
+): Record<SlackToolName, Tool> {
   const client = new WebClient(slackToken);
   const approval = options?.needsApproval;
 
@@ -84,5 +109,5 @@ export function createSlackTools(
       client,
       resolveApproval("slack_read_user_profile", approval),
     ),
-  } satisfies Record<SlackToolName, Tool>;
+  };
 }
