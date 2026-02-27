@@ -48,6 +48,29 @@ const tools = createSlackTools(process.env.SLACK_USER_TOKEN);
 | Name | Type | Required | Description |
 |---|---|---|---|
 | `slackToken` | `string` | Yes | A Slack user OAuth token (`xoxp-...`) with the required scopes. |
+| `options` | `CreateSlackToolsOptions` | No | Configuration options (see below). |
+
+#### Options
+
+| Name | Type | Default | Description |
+|---|---|---|---|
+| `needsApproval` | `boolean \| SlackToolName[]` | `undefined` | Controls which tools require human approval before execution. Pass `true` to require approval for all tools, or an array of tool names for selective approval. |
+
+```ts
+// Require approval for all tools
+const tools = createSlackTools(process.env.SLACK_USER_TOKEN, {
+  needsApproval: true,
+});
+
+// Require approval only for write operations
+const tools = createSlackTools(process.env.SLACK_USER_TOKEN, {
+  needsApproval: [
+    "slack_send_message",
+    "slack_schedule_message",
+    "slack_create_canvas",
+  ],
+});
+```
 
 #### Returns
 

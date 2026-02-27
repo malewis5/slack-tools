@@ -47,11 +47,15 @@ const searchUsersOutputSchema = z.object({
   next_cursor: z.string().optional(),
 });
 
-export function createSearchUsersTool(client: WebClient) {
+export function createSearchUsersTool(
+  client: WebClient,
+  needsApproval?: boolean,
+) {
   return tool({
     description: searchUsersDescription,
     inputSchema: searchUsersInputSchema,
     outputSchema: searchUsersOutputSchema,
+    needsApproval,
     execute: async (args) => {
       const [listResult, authResult] = await Promise.all([
         client.users.list({ limit: args.limit ?? 20, cursor: args.cursor }),

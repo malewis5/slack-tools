@@ -87,11 +87,15 @@ const searchPublicOutputSchema = z.object({
   next_cursor: z.string().optional(),
 });
 
-export function createSearchPublicTool(client: WebClient) {
+export function createSearchPublicTool(
+  client: WebClient,
+  needsApproval?: boolean,
+) {
   return tool({
     description: searchPublicDescription,
     inputSchema: searchPublicInputSchema,
     outputSchema: searchPublicOutputSchema,
+    needsApproval,
     execute: async (args) => {
       const result = await client.search.messages({
         query: args.query,

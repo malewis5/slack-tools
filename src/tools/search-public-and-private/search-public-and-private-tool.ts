@@ -95,11 +95,15 @@ const searchPublicAndPrivateOutputSchema = z.object({
   next_cursor: z.string().optional(),
 });
 
-export function createSearchPublicAndPrivateTool(client: WebClient) {
+export function createSearchPublicAndPrivateTool(
+  client: WebClient,
+  needsApproval?: boolean,
+) {
   return tool({
     description: searchPublicAndPrivateDescription,
     inputSchema: searchPublicAndPrivateInputSchema,
     outputSchema: searchPublicAndPrivateOutputSchema,
+    needsApproval,
     execute: async (args) => {
       const result = await client.search.messages({
         query: args.query,

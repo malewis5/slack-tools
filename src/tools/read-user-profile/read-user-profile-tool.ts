@@ -41,11 +41,16 @@ const readUserProfileOutputSchema = z.object({
   is_restricted: z.boolean(),
 });
 
-export function createReadUserProfileTool(client: WebClient) {
+export function createReadUserProfileTool(
+  client: WebClient,
+  needsApproval?: boolean,
+) {
   return tool({
     description: readUserProfileDescription,
     inputSchema: readUserProfileInputSchema,
     outputSchema: readUserProfileOutputSchema,
+    needsApproval,
+
     execute: async (args) => {
       let userId = args.user_id;
       if (!userId) {
