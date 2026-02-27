@@ -103,7 +103,7 @@ For issues and questions:
 
 - Check the [AI SDK documentation](https://ai-sdk.dev)
 - Review the [Slack Web API documentation](https://api.slack.com/web)
-- [Open an issue](https://github.com/vercel/slack-tools/issues) in this repository
+- [Open an issue](https://github.com/malewis5/slack-tools/issues) in this repository
 
 ## License
 

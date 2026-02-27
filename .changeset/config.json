@@ -2,7 +2,7 @@
   "$schema": "https://unpkg.com/@changesets/config@3.1.2/schema.json",
   "changelog": [
     "@changesets/changelog-github",
-    { "repo": "vercel/slack-tools" }
+    { "repo": "malewis5/slack-tools" }
   ],
   "commit": false,
   "fixed": [],

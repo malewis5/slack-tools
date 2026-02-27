@@ -1,17 +1,17 @@
 {
   "name": "slack-tools",
   "type": "module",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "description": "AI SDK tools for Slack",
   "author": "Vercel",
   "license": "MIT",
-  "homepage": "https://github.com/vercel/slack-tools#readme",
+  "homepage": "https://github.com/malewis5/slack-tools#readme",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/vercel/slack-tools.git"
+    "url": "git+https://github.com/malewis5/slack-tools.git"
   },
   "bugs": {
-    "url": "https://github.com/vercel/slack-tools/issues"
+    "url": "https://github.com/malewis5/slack-tools/issues"
   },
   "keywords": [
     "slack",
