@@ -11,10 +11,12 @@
     "noUnusedLocals": true,
     "declaration": true,
     "emitDeclarationOnly": true,
+    "noUnusedParameters": true,
     "esModuleInterop": true,
     "isolatedModules": true,
     "verbatimModuleSyntax": true,
     "skipLibCheck": true
   },
-  "include": ["src"]
+  "include": ["src", "generate.ts"],
+  "exclude": ["src/**/*.test.ts"]
 }

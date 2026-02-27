@@ -2,3 +2,13 @@ node_modules
 dist
 *.log
 .DS_Store
+.vercel
+.env
+.env*.local
+
+# Generate script and its output
+generate.ts
+tools.json
+src/tools/*/mcp-tool.json
+src/tools/*/mcp-response.json
+src/tools/*/tool-response.json

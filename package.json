@@ -1,42 +1,82 @@
 {
-  "name": "tsdown-starter",
+  "name": "slack-tools",
   "type": "module",
   "version": "0.0.0",
-  "description": "A starter for creating a TypeScript package.",
-  "author": "Author Name <author.name@mail.com>",
+  "description": "AI SDK tools for Slack",
+  "author": "Vercel",
   "license": "MIT",
-  "homepage": "https://github.com/author/library#readme",
+  "homepage": "https://github.com/vercel/slack-tools#readme",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/author/library.git"
+    "url": "git+https://github.com/vercel/slack-tools.git"
   },
   "bugs": {
-    "url": "https://github.com/author/library/issues"
+    "url": "https://github.com/vercel/slack-tools/issues"
   },
+  "keywords": [
+    "slack",
+    "ai-sdk",
+    "ai",
+    "tools",
+    "vercel",
+    "agent",
+    "mcp",
+    "chatbot"
+  ],
   "exports": {
-    ".": "./dist/index.mjs",
+    ".": {
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.cjs"
+    },
     "./package.json": "./package.json"
   },
-  "main": "./dist/index.mjs",
+  "main": "./dist/index.cjs",
   "module": "./dist/index.mjs",
-  "types": "./dist/index.d.mts",
+  "types": "./dist/index.d.cts",
   "files": [
     "dist"
   ],
   "scripts": {
     "build": "tsdown",
     "dev": "tsdown --watch",
-    "test": "vitest",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "generate": "tsx generate.ts",
     "typecheck": "tsc --noEmit",
     "attw": "attw --pack .",
+    "changeset": "changeset",
+    "version-packages": "changeset version",
+    "release": "pnpm run build && changeset publish",
     "prepublishOnly": "pnpm run build"
   },
   "devDependencies": {
+    "@ai-sdk/mcp": "^1.0.21",
     "@arethetypeswrong/cli": "^0.18.2",
+    "@changesets/changelog-github": "^0.5.2",
+    "@changesets/cli": "^2.29.8",
     "@types/node": "^25.0.3",
     "bumpp": "^10.3.2",
-    "tsdown": "^0.18.1",
+    "dotenv": "^17.3.1",
+    "tsdown": "0.21.0-beta.2",
+    "tsx": "^4.21.0",
     "typescript": "^5.9.3",
     "vitest": "^4.0.16"
+  },
+  "dependencies": {
+    "@slack/web-api": "^7.14.1",
+    "ai": "^6.0.103",
+    "zod": "^4.3.6"
+  },
+  "peerDependencies": {
+    "ai": ">=6.0.0",
+    "zod": ">=4.0.0"
+  },
+  "peerDependenciesMeta": {
+    "ai": {
+      "optional": false
+    },
+    "zod": {
+      "optional": false
+    }
   }
 }

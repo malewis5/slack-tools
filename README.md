@@ -1,23 +1,110 @@
-# tsdown-starter
+# slack-tools
 
-A starter for creating a TypeScript package.
+[AI SDK](https://ai-sdk.dev) tools for [Slack](https://api.slack.com). Typed, structured tool calls for AI agents. No MCP transport required.
 
-## Development
+## Installation
 
-- Install dependencies:
-
-```bash
-npm install
+```shell
+npm install slack-tools
+# or
+yarn add slack-tools
+# or
+pnpm add slack-tools
+# or
+bun add slack-tools
 ```
 
-- Run the unit tests:
+## Quick Start
 
-```bash
-npm run test
+```ts
+import { generateText } from "ai";
+import { createSlackTools } from "slack-tools";
+
+const tools = createSlackTools(process.env.SLACK_TOKEN);
+
+const { text } = await generateText({
+  model: "anthropic/claude-sonnet-4-5",
+  tools,
+  prompt: "Search for messages about the Q1 roadmap in #general",
+});
 ```
 
-- Build the library:
+The model string uses the [Vercel AI Gateway](https://vercel.com/docs/ai-gateway), which provides access to OpenAI, Anthropic, Google, and other providers through a single API.
 
-```bash
-npm run build
+## API Reference
+
+### createSlackTools
+
+Returns all available Slack tools, ready to pass to `generateText`, `streamText`, or any AI SDK agent.
+
+```ts
+import { createSlackTools } from "slack-tools";
+
+const tools = createSlackTools(process.env.SLACK_TOKEN);
 ```
+
+#### Parameters
+
+| Name | Type | Required | Description |
+|---|---|---|---|
+| `slackToken` | `string` | Yes | A Slack OAuth token (bot or user) with the required scopes. |
+
+#### Returns
+
+An object containing the following tools:
+
+| Tool | Description |
+|---|---|
+| `slack_send_message` | Send a message to a channel or user. |
+| `slack_schedule_message` | Schedule a message for future delivery. |
+| `slack_create_canvas` | Create a new Slack Canvas document. |
+| `slack_search_public` | Search messages in public channels. |
+| `slack_search_public_and_private` | Search messages across all channels (public, private, DMs). |
+| `slack_search_channels` | Find channels by name, topic, or purpose. |
+| `slack_search_users` | Find users by name, email, or title. |
+| `slack_read_channel` | Read message history from a channel. |
+| `slack_read_thread` | Read a thread (parent message and replies). |
+| `slack_read_user_profile` | Get detailed profile information for a user. |
+
+Each tool includes `inputSchema`, `outputSchema`, `execute`, and `toModelOutput`.
+
+## Required Scopes
+
+`chat:write`, `canvases:write`, `search:read`, `channels:read`, `channels:history`, `groups:history`, `im:history`, `mpim:history`, `users:read`, `users:read.email`
+
+## Comparison with Slack MCP
+
+This package was built by running each tool against the [Slack MCP server](https://api.slack.com/docs/mcp) and comparing responses side-by-side. The goal was to match the MCP's behavior as closely as the public Slack API allows.
+
+| Tool | slack-tools | Slack MCP | Notes |
+|---|---|---|---|
+| Send message | ✅ | ✅ | Equivalent output |
+| Schedule message | ✅ | ✅ | Equivalent output |
+| Create canvas | ✅ | ✅ | Equivalent output |
+| Search public messages | ✅ | ✅ | MCP includes message context and reply counts via internal APIs |
+| Search all messages | ✅ | ✅ | Same as above |
+| Search channels | ✅ | ✅ | MCP includes channel permalinks |
+| Search users | ✅ | ✅ | Equivalent output including profile permalinks |
+| Read channel | ✅ | ✅ | Equivalent output |
+| Read thread | ✅ | ✅ | Equivalent output |
+| Read user profile | ✅ | ✅ | Equivalent output |
+| Read canvas | ❌ | ✅ | Slack's public API does not support reading canvas content |
+| Send message draft | ❌ | ✅ | `chat.draft` is not available in the public Slack Web API |
+
+The MCP returns all results as stringified text inside `content[0].text`. This package returns typed objects from `execute` and provides `toModelOutput` for model-friendly text formatting, making it easy to programmatically compose follow-up actions from tool results.
+
+## Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+## Support
+
+For issues and questions:
+
+- Check the [AI SDK documentation](https://ai-sdk.dev)
+- Review the [Slack Web API documentation](https://api.slack.com/web)
+- [Open an issue](https://github.com/vercel/slack-tools/issues) in this repository
+
+## License
+
+[MIT](./LICENSE)
