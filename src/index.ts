@@ -9,6 +9,8 @@ import { createSearchUsersTool } from "./tools/search-users/search-users-tool";
 import { createReadChannelTool } from "./tools/read-channel/read-channel-tool";
 import { createReadThreadTool } from "./tools/read-thread/read-thread-tool";
 import { createReadUserProfileTool } from "./tools/read-user-profile/read-user-profile-tool";
+import { createJoinChannelTool } from "./tools/join-channel/join-channel-tool";
+import { createDeleteMessageTool } from "./tools/delete-message/delete-message-tool";
 import type { Tool } from "ai";
 
 export type SlackToolName =
@@ -21,7 +23,9 @@ export type SlackToolName =
   | "slack_search_users"
   | "slack_read_channel"
   | "slack_read_thread"
-  | "slack_read_user_profile";
+  | "slack_read_user_profile"
+  | "slack_join_channel"
+  | "slack_delete_message";
 
 export interface CreateSlackToolsOptions {
   /**
@@ -108,6 +112,14 @@ export function createSlackTools(
     slack_read_user_profile: createReadUserProfileTool(
       client,
       resolveApproval("slack_read_user_profile", approval),
+    ),
+    slack_join_channel: createJoinChannelTool(
+      client,
+      resolveApproval("slack_join_channel", approval),
+    ),
+    slack_delete_message: createDeleteMessageTool(
+      client,
+      resolveApproval("slack_delete_message", approval),
     ),
   };
 }
