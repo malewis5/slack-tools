@@ -39,7 +39,6 @@ describe("slack_join_channel", () => {
           id: "C09T3M2NLG4",
           name: "general",
         },
-        already_in_channel: false,
       });
     });
 
@@ -56,7 +55,7 @@ describe("slack_join_channel", () => {
       );
     });
 
-    it("returns channel info with already_in_channel false", async () => {
+    it("returns channel info with already_in_channel false for fresh join", async () => {
       const { slack_join_channel } = createSlackTools("xoxb-test-token");
       const result = await slack_join_channel.execute!(
         { channel_id: "C09T3M2NLG4" },
@@ -69,11 +68,12 @@ describe("slack_join_channel", () => {
       });
     });
 
-    it("returns already_in_channel true when already a member", async () => {
+    it("returns already_in_channel true when warning indicates membership", async () => {
       mockConversationsJoin.mockResolvedValue({
         ok: true,
         channel: { id: "C09T3M2NLG4", name: "general" },
-        already_in_channel: true,
+        warning: "already_in_channel",
+        response_metadata: { warnings: ["already_in_channel"] },
       });
       const { slack_join_channel } = createSlackTools("xoxb-test-token");
       const result = await slack_join_channel.execute!(
