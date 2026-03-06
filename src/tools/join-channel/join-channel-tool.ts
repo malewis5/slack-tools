@@ -34,10 +34,16 @@ export function createJoinChannelTool(
         name?: string;
       };
 
+      // `already_in_channel` is returned by the Slack API at runtime
+      // but is not included in the @slack/web-api type definitions.
+      const alreadyInChannel =
+        (result as unknown as Record<string, unknown>).already_in_channel ===
+        true;
+
       return {
         channel_id: channel.id ?? args.channel_id,
         channel_name: channel.name ?? args.channel_id,
-        already_in_channel: result.already_in_channel ?? false,
+        already_in_channel: alreadyInChannel,
       };
     },
     toModelOutput: ({ output }) => ({
