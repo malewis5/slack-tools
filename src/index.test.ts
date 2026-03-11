@@ -12,6 +12,8 @@ const ALL_TOOL_NAMES = [
   "slack_read_channel",
   "slack_read_thread",
   "slack_read_user_profile",
+  "slack_join_channel",
+  "slack_delete_message",
 ] as const;
 
 describe("createSlackTools", () => {

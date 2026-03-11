@@ -71,6 +71,8 @@ const tools = createSlackTools(process.env.SLACK_USER_TOKEN, {
     "slack_send_message",
     "slack_schedule_message",
     "slack_create_canvas",
+    "slack_join_channel",
+    "slack_delete_message",
   ],
 });
 ```
@@ -91,6 +93,8 @@ An object containing the following tools:
 | `slack_read_channel` | Read message history from a channel. |
 | `slack_read_thread` | Read a thread (parent message and replies). |
 | `slack_read_user_profile` | Get detailed profile information for a user. |
+| `slack_join_channel` | Join a public channel on behalf of the bot/agent. |
+| `slack_delete_message` | Delete a message previously sent by the bot/agent. |
 
 Each tool includes `inputSchema`, `outputSchema`, `execute`, and `toModelOutput`.
 
@@ -98,7 +102,7 @@ Each tool includes `inputSchema`, `outputSchema`, `execute`, and `toModelOutput`
 
 Your Slack app needs the following user token scopes:
 
-`chat:write`, `canvases:read`, `canvases:write`, `channels:history`, `groups:history`, `im:history`, `mpim:history`, `search:read.public`, `search:read.private`, `search:read.mpim`, `search:read.im`, `search:read.files`, `search:read.users`, `users:read`, `users:read.email`
+`chat:write`, `canvases:read`, `canvases:write`, `channels:history`, `channels:join`, `groups:history`, `im:history`, `mpim:history`, `search:read.public`, `search:read.private`, `search:read.mpim`, `search:read.im`, `search:read.files`, `search:read.users`, `users:read`, `users:read.email`
 
 ## Comparison with Slack MCP
 
@@ -116,6 +120,8 @@ This package was built by running each tool against the [Slack MCP server](https
 | Read channel | ✅ | ✅ | Equivalent output |
 | Read thread | ✅ | ✅ | Equivalent output |
 | Read user profile | ✅ | ✅ | Equivalent output |
+| Join channel | ✅ | ❌ | Not available in Slack MCP |
+| Delete message | ✅ | ❌ | Not available in Slack MCP |
 | Read canvas | ❌ | ✅ | Slack's public API does not support reading canvas content |
 | Send message draft | ❌ | ✅ | `chat.draft` is not available in the public Slack Web API |
 
