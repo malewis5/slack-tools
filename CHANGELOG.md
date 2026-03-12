@@ -1,5 +1,14 @@
 # slack-tools
 
+## 1.2.0
+
+### Minor Changes
+
+- [#12](https://github.com/malewis5/slack-tools/pull/12) [`f632d3b`](https://github.com/malewis5/slack-tools/commit/f632d3b86a1af26e64b6e8322afc93eac80643f7) Thanks [@visyat](https://github.com/visyat)! - Add `slack_join_channel` and `slack_delete_message` tools
+
+  - `slack_join_channel`: Join a public Slack channel via `conversations.join`
+  - `slack_delete_message`: Delete the bot's own messages via `chat.delete`
+
 ## 1.1.1
 
 ### Patch Changes
